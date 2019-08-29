@@ -25,7 +25,7 @@ def main():
     dx, dy = 6, 3 # Change in positions for x and for y (Meters)
     ay = -9.81 # gravity (m/s^2)
     
-    theta_array = np.arange(30, 75, 4) # Create a linearly spacing of theta values
+    theta_array = np.arange(30, 75, 0.5) # Create a linearly spacing of theta values
     
     '''
     Theta values are chosen from needing to be larger than atan(3/6)
@@ -35,9 +35,14 @@ def main():
     
     for i in range(len(theta_array)):
         try:
-            # using v^2 = v_o^2 + 2a*dy, we can assume v is zero at the 3m point making it a minimum for the
-            # parabolic motion
-            v_o = np.sqrt(2 * abs(ay) * dy) / np.sin(theta_array[i] * np.pi / 180)
+            # using: xf = v_o * cos(theta) * t
+            # v_0 = xf / (t * cos(theta))
+            # yf = v_o sin(theta) * t + 1/2 ay t^2
+            # yf = xf tan(theta) + 1/2 ay t^2
+            # t = sqrt((2 * xf * tan(theta) - yf) / ay)
+            # v_o = xf / (t * cos(theta))
+            t = np.sqrt((2 * dx * np.tan(theta_array[i] * np.pi / 180) - dy) / abs(ay)) # find the tof
+            v_o = dx / (np.cos(theta_array[i] * np.pi / 180) * t)
             print "Initial Velocity:\t{0}\tIncident Angel:\t{1}".format(v_o, theta_array[i])
             v_init.append(v_o)
         except:

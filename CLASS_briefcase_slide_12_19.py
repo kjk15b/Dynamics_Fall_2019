@@ -56,25 +56,31 @@ def main():
     
     time = np.sqrt(2 * dy / g)
     
+    print "Time:\t{0} [s]\t|\tVelocity:\t{1} [ft/s]".format(time, vfx)
+    
     xf = vfx * time
     
     print "Final briefcase position:\t{0} [ft]".format(xf)
     
-    theta_array = np.arange(0, 85, 1)
+    theta_array = np.arange(1, 85, 1)
     xF = list()
     
     for i in range(len(theta_array)):
-        ax = g * np.sin(theta_array[i] * np.pi / 180) - mu * g * np.cos(theta_array[i] * np.pi / 180)
-        dx = dr * np.cos(theta_array[i] * np.pi / 180)
+        try:
+            ax = g * np.sin(theta_array[i] * np.pi / 180) - mu * g * np.cos(theta_array[i] * np.pi / 180)
+            dx = dr * np.cos(theta_array[i] * np.pi / 180)
         
-        vfx = np.sqrt(pow(Vo * np.sin(theta_array[i] * np.pi / 180), 2) + 2 * ax * dx)
+            vfx = np.sqrt(pow(Vo * np.sin(theta_array[i] * np.pi / 180), 2) + 2 * ax * dx)
         
-        time = np.sqrt(2 * dy / g)
+            time = np.sqrt(2 * dy / g)
         
-        xF.append(vfx * time)
+            xF.append(vfx * time)
         
-        print "Angle:\t{0} [deg]\t|\tPosition:\t{1} [ft]".format(theta_array[i], vfx * time)
+            print "Angle:\t{0} [deg]\t|\tPosition:\t{1} [ft]".format(theta_array[i], vfx * time)
         
+        except ValueError:
+            pass
+            
     plt.figure()
     plt.title("Briefcase Final Position vs Inclined Angle")
     plt.xlabel("Angle [deg]")

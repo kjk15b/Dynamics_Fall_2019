@@ -62,7 +62,7 @@ def main():
         b_accel.append(-1 * (a + b + c))
         
     plt.figure(1)
-    plt.title("Sliding Box Accelerations")
+    plt.title("Sliding Box Accelerationsffffffff")
     plt.xlabel("Angle [deg]")
     plt.ylabel("Acceleration [m/s^2]")
     plt.plot(theta, a_accel, color='red', label="Box A")
